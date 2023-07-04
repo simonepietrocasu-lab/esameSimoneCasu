@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="prog-4ed">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/OOP/prog-4ed.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Desktop/OOP/prog-4ed.jar!/doc" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
