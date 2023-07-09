@@ -81,4 +81,14 @@ public class Persona implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", sesso='" + sesso + '\'' +
+                ", dataDiNascita='" + dataDiNascita + '\'' +
+                ", codiceFiscale='" + codiceFiscale + '\'' +
+                '}';
+    }
 }

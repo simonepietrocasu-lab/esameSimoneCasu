@@ -15,24 +15,7 @@ public class Viaggiatore extends Persona implements Serializable{
         super(nome, cognome, sesso, dataDiNascita, codiceFiscale);
     }
 
-   /* @Override
-    public String getNome() { return getNome();}
 
-    public String getCognome() {
-        return getCognome();
-    }
-
-    public String getSesso() {
-        return getSesso();
-    }
-
-    public String getDataDiNascita() {
-        return getDataDiNascita();
-    }
-
-    public String getCodiceFiscale() {
-        return getCodiceFiscale();
-    }*/
 
     public boolean ChekIn;
 
@@ -46,7 +29,7 @@ public class Viaggiatore extends Persona implements Serializable{
                 ", codiceFiscale='" + getCodiceFiscale() + '\'' +
                 '}';
     }
-
+    //metodo che consente una nuova prenotazione
     public Viaggiatore prenotazione(/*Viaggiatore passeggero*/)
     {
         Viaggiatore passeggero = new Viaggiatore();
@@ -114,6 +97,8 @@ public class Viaggiatore extends Persona implements Serializable{
 
     }
 
+    //metodo che salva i viaggiatori nel file binario, e lo crea nel caso non esista
+
     public void salvaViaggiatori(ArrayList<Viaggiatore> passeggero, File filename)  {
         if(filename.exists())
         {
@@ -143,6 +128,7 @@ public class Viaggiatore extends Persona implements Serializable{
         }
 
     }
+    //metodo che carica gli oggetti viaggiatori da file binario ad arraylist di viaggiatori
     public  ArrayList<Viaggiatore> caricaViaggiatori(File filename ) {
         if(filename.exists()==true)
         {
@@ -182,6 +168,7 @@ public class Viaggiatore extends Persona implements Serializable{
         ChekIn = chekIn;
     }
 
+    //metodo che controlla se un viaggiatore è presente nell'arraylist di viaggiatori
     public Viaggiatore getViaggiatoreCf(String codiceFiscale, ArrayList<Viaggiatore> viaggiatori){
         Viaggiatore pass = new Viaggiatore();
          for(Viaggiatore a : viaggiatori){
@@ -198,4 +185,5 @@ public class Viaggiatore extends Persona implements Serializable{
         return pass;
 
     }
+
 }

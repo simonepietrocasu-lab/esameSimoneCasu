@@ -14,27 +14,20 @@ public class Menu {
      //arraylist che contiene i viaggiatori contenuti sul file bin
     static ArrayList<Viaggiatore> viaggiatori = new ArrayList<Viaggiatore>();
     static Viaggiatore passeggern = new Viaggiatore();
+    static Volo volo = new Volo();
+    static File passeggeri = new File("passeggeri.bin");
 
 
 
 
 
     public static void main(String[] args) {
-        File passeggeri = new File("passeggeri.bin");
+
+        passeggern.caricaViaggiatori(passeggeri);
 
 
         Volo volo1 = new Volo();
         Menu menu = new Menu();
-       /* try{
-            FileInputStream file = new FileInputStream("passeggeri.bin");
-            ObjectInputStream in = new ObjectInputStream(file);
-            file.close();
-            in.close();
-
-        }catch (Exception e)
-        {
-            System.out.println(e);
-        }*/
 
 
         try{
@@ -118,6 +111,8 @@ public class Menu {
             System.out.println(" 6: cerca la meta disponibile per una certa data");
             selezione = ing.nextInt();
 
+            //controllo dell'input
+
             while(selezione < 1 || selezione > 6){
 
                 System.out.println("ERRORE!!! \n \n inserire un valore compreso tra 1 e 6");
@@ -163,7 +158,7 @@ public class Menu {
                                 passeggern = viaggiatore;
                             }
                         }
-                        //uso la funzione getviaggiatore che mi restituisce il viaggiatore su cui registrare il volo
+                        //potrei usare la funzione getviaggiatore che mi restituisce il viaggiatore su cui registrare il volo
                         //passeggern = passeggern.getViaggiatoreCf(codice,viaggiatori);
 
                     }catch(Exception e){
@@ -178,14 +173,14 @@ public class Menu {
 
                         System.out.println("viaggiatore non registrato sulla piattaforma, eseguire una nuova registrazione :");
                         System.out.println("benvenuto nella sezione NUOVA REGISTRAZIONE: ");
-                        Viaggiatore passenger1 = new Viaggiatore();
 
 
-                        passeggern = passenger1.prenotazione();
+
+                        passeggern = passeggern.prenotazione();
                         System.out.println(passeggern.toString());
                         viaggiatori.add(passeggern);
                         System.out.println(passeggern);
-                        passenger1.salvaViaggiatori(viaggiatori, passeggeri);
+                        passeggern.salvaViaggiatori(viaggiatori, passeggeri);
 
 
 
@@ -207,7 +202,7 @@ public class Menu {
                     switch(selection){
                         case 1:
                             menu.stampaHash(partenze);
-                            Volo volo = new Volo();
+
                             System.out.println("inserire aeroporto di partenza e data per cui si vuole prenotare : ");
                             Scanner ins = new Scanner(System.in);
 
@@ -262,6 +257,111 @@ public class Menu {
                         case 2:
                             //prenotazione tramite ricerca del volo
 
+                            Scanner den = new Scanner(System.in);
+                            int iter;
+                            System.out.println("1: cerca volo tramite data");
+                            System.out.println("2: cerca volo tramite meta");
+
+                            iter = den.nextInt();
+                            while(iter <1 || iter >2)
+                            {
+                                System.out.println("ERRORE!!!! inserire un valore compreso tra 1 e 2 !");
+                                iter = den.nextInt();
+                            }
+
+                            switch(iter){
+                                case 1:
+                                    //ricerca tramite data
+                                    System.out.println("inserire la data per cui si vuole cercare la meta: ");
+                                    String meta1;
+                                    String data1;
+                                    Scanner in = new Scanner(System.in);
+                                    meta1 = in.nextLine();
+                                    data1 = prenotazione.getData(partenze, meta1);
+                                    if (data1 == null) {
+                                        System.out.println("nessuna data trovata per questa meta");
+                                        break;
+
+                                    } else {
+                                        System.out.println("trovata almeno una data per : " + data1);
+                                    }
+                                    volo.setAeroportoPartenza(meta1);
+                                    volo.setAndata(data1);
+
+                                    System.out.println("inserire aeroporto di ritorno: ");
+                                    try{
+
+                                        volo.setAeroportoRitorno(in.nextLine());
+
+                                    }catch(Exception e){
+                                        System.out.println(e);
+                                    }
+                                    System.out.println("inserire data di ritorno");
+                                    try{
+
+                                        volo.setRitorno(in.nextLine());
+
+                                    }catch(Exception e){
+                                        System.out.println(e);
+                                    }
+                                    Biglietto bin = new Biglietto(passeggern, volo.getAeroportoPartenza(), volo.getAndata(), volo.getAeroportoRitorno(), volo.getRitorno());
+                                    System.out.println("desideri stampare il biglietto? ");
+                                    s = in.nextLine();
+                                    if(s.equals("si")){
+                                        bin.stampaBiglietto();
+                                    }
+
+                                    break;
+
+                                case 2:
+                                    //ricerca tramite data
+                                    String meta;
+                                    String data;
+                                    Scanner den1 = new Scanner(System.in);
+                                    System.out.println("inserire la data");
+
+
+                                    data = den1.nextLine();
+                                    meta = prenotazione.getMeta(partenze, data);
+
+                                    if(meta == null){
+
+                                        System.out.println("nessuna meta trovata per questa data");
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("è stata trovat una meta per : "+ meta);
+                                    }
+                                    volo.setAeroportoPartenza(meta);
+                                    volo.setAndata(data);
+
+                                    System.out.println("inserire aeroporto di ritorno: ");
+                                    try{
+
+                                        volo.setAeroportoRitorno(den1.nextLine());
+
+                                    }catch(Exception e){
+                                        System.out.println(e);
+                                    }
+                                    System.out.println("inserire data di ritorno");
+                                    try{
+
+                                        volo.setRitorno(den1.nextLine());
+
+                                    }catch(Exception e){
+                                        System.out.println(e);
+                                    }
+                                    Biglietto bin1 = new Biglietto(passeggern, volo.getAeroportoPartenza(), volo.getAndata(), volo.getAeroportoRitorno(), volo.getRitorno());
+                                    System.out.println("desideri stampare il biglietto? ");
+                                    s = den1.nextLine();
+                                    if(s.equals("si")){
+                                        bin1.stampaBiglietto();
+                                    }
+
+                                    break;
+
+                            }
+
 
                             break;
 
@@ -271,12 +371,12 @@ public class Menu {
                 case 4:
 
                     System.out.println("benvenuto nella sezione NUOVA REGISTRAZIONE: ");
-                    Viaggiatore passenger = new Viaggiatore();
+
                     Viaggiatore app = new Viaggiatore();
 
-                    passenger = app.prenotazione();
-                    System.out.println(passenger.toString());
-                    viaggiatori.add(passenger);
+                    app = app.prenotazione();
+                    System.out.println(app.toString());
+                    viaggiatori.add(app);
                     System.out.println(viaggiatori);
                     app.salvaViaggiatori(viaggiatori, passeggeri);
 
@@ -337,13 +437,13 @@ public class Menu {
             }
 
 
-
+            passeggern.salvaViaggiatori(viaggiatori,passeggeri);
         }while(retroazione == true);
 
 
+        //scrittura su file binario delle partenze e dei ritorni
 
-
-    try{//scrittura su file binario
+    try{
         FileOutputStream fileOut = new FileOutputStream("seriale.bin");
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(partenze);
@@ -354,18 +454,7 @@ public class Menu {
         System.out.println(e);
     }
 
-  /*  //scrittura viaggiatori su file binario
-   try{
-        FileOutputStream outfile = new FileOutputStream("passeggeri.bin");
-        ObjectOutputStream outs = new ObjectOutputStream(outfile);
-        outs.writeObject(viaggiatori);
-        outs.close();;
-        outfile.close();
 
-
-    }catch(IOException e){
-        System.out.println(e);
-        }*/
 
 
     }

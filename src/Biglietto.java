@@ -9,11 +9,7 @@ public class Biglietto {
     String ritorno;
     String datap,datar;
 
-    int classe;
 
-    int posto;
-
-    int bagaglio;
 
     public Biglietto(Viaggiatore a, String partenza, String ritorno, String datap, String datar) {
         A = a;
@@ -33,6 +29,8 @@ public class Biglietto {
                 ", datar='" + datar + '\'' +
                 '}';
     }
+
+    //metodo che stampa su file di testo il biglietto contenente tutti i dati del viaggiatore
 
     public void stampaBiglietto(){
 
@@ -61,5 +59,48 @@ public class Biglietto {
 
 
     }
+
+    public Viaggiatore getA() {
+        return A;
+    }
+
+    public void setA(Viaggiatore a) {
+        A = a;
+    }
+
+    public String getPartenza() {
+        return partenza;
+    }
+
+    public void setPartenza(String partenza) {
+        this.partenza = partenza;
+    }
+
+    public String getRitorno() {
+        return ritorno;
+    }
+
+    public void setRitorno(String ritorno) {
+        this.ritorno = ritorno;
+    }
+
+    public String getDatap() {
+        return datap;
+    }
+
+    public void setDatap(String datap) {
+        this.datap = datap;
+    }
+
+    public String getDatar() {
+        return datar;
+    }
+
+    public void setDatar(String datar) {
+        this.datar = datar;
+    }
+
+
+
 
 }
